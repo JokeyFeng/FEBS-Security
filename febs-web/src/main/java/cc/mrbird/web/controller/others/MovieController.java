@@ -11,6 +11,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+/**
+ * @author yiheni
+ */
 @Controller
 public class MovieController {
 
@@ -32,7 +35,7 @@ public class MovieController {
 
     @RequestMapping("movie/getMovieHot")
     @ResponseBody
-    public ResponseBo getMoiveHot() {
+    public ResponseBo getMovieHot() {
         try {
             String data = HttpUtils.sendSSLPost(FebsConstant.TIME_MOVIE_HOT_URL, "locationId=328");
             return ResponseBo.ok(data);

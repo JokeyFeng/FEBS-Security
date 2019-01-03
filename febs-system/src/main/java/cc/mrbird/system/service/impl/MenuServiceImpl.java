@@ -25,6 +25,9 @@ import tk.mybatis.mapper.entity.Example.Criteria;
 import java.util.*;
 import java.util.stream.Collectors;
 
+/**
+ * @author yiheni
+ */
 @Service("menuService")
 @Transactional(propagation = Propagation.SUPPORTS, readOnly = true, rollbackFor = Exception.class)
 public class MenuServiceImpl extends BaseService<Menu> implements MenuService {
@@ -125,7 +128,7 @@ public class MenuServiceImpl extends BaseService<Menu> implements MenuService {
     }
 
     @Override
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public void addMenu(Menu menu) {
         menu.setCreateTime(new Date());
         if (menu.getParentId() == null)
@@ -138,7 +141,7 @@ public class MenuServiceImpl extends BaseService<Menu> implements MenuService {
     }
 
     @Override
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public void deleteMeuns(String menuIds) {
         List<String> list = Arrays.asList(menuIds.split(","));
         this.batchDelete(list, "menuId", Menu.class);
@@ -152,7 +155,7 @@ public class MenuServiceImpl extends BaseService<Menu> implements MenuService {
     }
 
     @Override
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public void updateMenu(Menu menu) {
         menu.setModifyTime(new Date());
         if (menu.getParentId() == null)
@@ -189,6 +192,5 @@ public class MenuServiceImpl extends BaseService<Menu> implements MenuService {
             }
         }
         return urlList;
-
     }
 }

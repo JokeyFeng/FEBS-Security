@@ -18,6 +18,8 @@ import java.io.IOException;
 
 /**
  * 登录失败处理器
+ *
+ * @author yiheni
  */
 @Component
 public class FebsAuthenticationFailureHandler implements AuthenticationFailureHandler {

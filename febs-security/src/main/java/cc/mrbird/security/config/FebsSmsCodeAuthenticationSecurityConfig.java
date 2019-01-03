@@ -16,6 +16,8 @@ import org.springframework.stereotype.Component;
 
 /**
  * 短信认证流程配置
+ *
+ * @author yiheni
  */
 @Component
 public class FebsSmsCodeAuthenticationSecurityConfig extends SecurityConfigurerAdapter<DefaultSecurityFilterChain, HttpSecurity> {

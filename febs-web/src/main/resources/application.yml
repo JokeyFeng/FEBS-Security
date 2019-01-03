@@ -7,17 +7,17 @@ server:
 
 spring:
   datasource:
-    url: jdbc:mysql://192.168.160.135.0.0.1:3306/febs_security?useUnicode=true&characterEncoding=utf8
+    url: jdbc:mysql://192.168.160.143:3306/febs_security?useUnicode=true&characterEncoding=utf8&useSSL=false
     username: root
     password: 123456
     driver-class-name: com.mysql.jdbc.Driver
-    hikari:
-      minimum-idle: 5
-      maximum-pool-size: 15
-      connection-test-query: select 1
-      max-lifetime: 1800000
-      connection-timeout: 30000
-      pool-name: FebsHikariCP
+    #hikari:
+    #  minimum-idle: 5
+    #  maximum-pool-size: 15
+    #  connection-test-query: select 1
+    #   max-lifetime: 1800000
+    #  connection-timeout: 30000
+    #  pool-name: FebsHikariCP
 
   thymeleaf:
     cache: false
@@ -31,9 +31,9 @@ spring:
 
   # redis配置，默认没有密码
   redis:
-    host: 127.0.0.1
+    host: 192.168.160.143
     port: 6379
-    password:
+    password: 123456
     jedis:
       pool:
         min-idle: 8
@@ -48,7 +48,7 @@ spring:
     redis:
       namespace: febs:spring:session
 
-# spring boot admin配置开始
+  # spring boot admin配置开始
   boot:
     admin:
       client:
@@ -107,6 +107,7 @@ logging:
       mrbird:
         system:
           dao: debug
+  config: classpath:logback-spring.xml
 
 febs:
   # AOP记录用户操作日志，true开启，false关闭
@@ -166,9 +167,9 @@ febs:
         # 和 filter-processes-url 组成 QQ登录 url
         provider-id: qq
         # QQ登录的 appId，需要到 QQ互联 中申请
-        app-id: your-app-id
+        app-id: 1108013315
         # QQ登录的 appSecret，需要到 QQ互联 中申请
-        app-secret: your-app-secret
+        app-secret: 9U7E2NHq6nWlS4w1
       weixin:
         # 和 filter-processes-url 组成 微信登录 url
         providerId: weixin

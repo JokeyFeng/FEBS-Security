@@ -6,6 +6,9 @@ import cc.mrbird.security.code.ValidateCode;
 import java.awt.image.BufferedImage;
 import java.time.LocalDateTime;
 
+/**
+ * @author yiheni
+ */
 public class ImageCode extends ValidateCode {
 
     private static final long serialVersionUID = 1111544715170749226L;

@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * 配置登出处理器，解决登出后 principals 中还存在相应的 sessionInformation 的问题
+ *
+ * @author yiheni
  */
 public class FebsLogoutHandler implements LogoutHandler {
 
@@ -17,8 +19,9 @@ public class FebsLogoutHandler implements LogoutHandler {
     @Override
     public void logout(HttpServletRequest request, HttpServletResponse response, Authentication authentication) {
         String sessionId = request.getRequestedSessionId();
-        if (sessionId != null)
+        if (sessionId != null) {
             sessionRegistry.removeSessionInformation(sessionId);
+        }
     }
 
     public SessionRegistry getSessionRegistry() {

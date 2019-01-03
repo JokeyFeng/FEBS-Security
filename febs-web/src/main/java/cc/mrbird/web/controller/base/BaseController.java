@@ -10,30 +10,33 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * @author yiheni
+ */
 public class BaseController {
 
-	protected Map<String, Object> getDataTable(PageInfo<?> pageInfo) {
-		Map<String, Object> rspData = new HashMap<>();
-		rspData.put("rows", pageInfo.getList());
-		rspData.put("total", pageInfo.getTotal());
-		return rspData;
-	}
+    protected Map<String, Object> getDataTable(PageInfo<?> pageInfo) {
+        Map<String, Object> rspData = new HashMap<>();
+        rspData.put("rows", pageInfo.getList());
+        rspData.put("total", pageInfo.getTotal());
+        return rspData;
+    }
 
-	protected MyUser getCurrentUser(){
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		Object principal = authentication.getPrincipal();
-		MyUser user = new MyUser();
-		if(principal instanceof FebsUserDetails){
-			FebsUserDetails userDetails = (FebsUserDetails) principal;
-			user.setUserId(userDetails.getUserId());
-			user.setPassword(userDetails.getPassword());
-			user.setUsername(userDetails.getUsername());
-		}else{
-			FebsSocialUserDetails userDetails = (FebsSocialUserDetails) principal;
-			user.setUserId(userDetails.getUsersId());
-			user.setPassword(userDetails.getPassword());
-			user.setUsername(userDetails.getUsername());
-		}
-		return user;
-	}
+    protected MyUser getCurrentUser() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Object principal = authentication.getPrincipal();
+        MyUser user = new MyUser();
+        if (principal instanceof FebsUserDetails) {
+            FebsUserDetails userDetails = (FebsUserDetails) principal;
+            user.setUserId(userDetails.getUserId());
+            user.setPassword(userDetails.getPassword());
+            user.setUsername(userDetails.getUsername());
+        } else {
+            FebsSocialUserDetails userDetails = (FebsSocialUserDetails) principal;
+            user.setUserId(userDetails.getUsersId());
+            user.setPassword(userDetails.getPassword());
+            user.setUsername(userDetails.getUsername());
+        }
+        return user;
+    }
 }

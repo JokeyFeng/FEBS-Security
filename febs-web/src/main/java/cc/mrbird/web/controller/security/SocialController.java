@@ -31,6 +31,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * @author yiheni
+ */
 @Controller
 public class SocialController extends BaseController {
 
@@ -136,10 +139,11 @@ public class SocialController extends BaseController {
         sessionStrategy.removeAttribute(servletWebRequest, FebsConstant.SESSION_KEY_SOCIAL_OPENID);
 
         List<UserConnection> list = this.userConnectionService.findByProviderUserId(providerId);
-        if (list.size() >= 2)
+        if (list.size() >= 2) {
             list.stream()
                     .filter(userConnection -> !StringUtils.equals(currentUser.getUsername(), userConnection.getUserid()))
                     .forEach(userConnection -> this.userConnectionService.delete(userConnection));
+        }
         return "connect/bind_success";
     }
 

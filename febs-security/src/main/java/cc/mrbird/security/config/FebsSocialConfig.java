@@ -20,6 +20,7 @@ import javax.sql.DataSource;
 
 /**
  * spring social 配置中心
+ * @author yiheni
  */
 @Configuration
 @EnableSocial

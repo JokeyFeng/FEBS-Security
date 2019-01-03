@@ -43,6 +43,7 @@ import java.util.Map;
 
 /**
  * security 配置中心
+ * @author yiheni
  */
 @Configuration
 @EnableGlobalMethodSecurity(prePostEnabled = true)

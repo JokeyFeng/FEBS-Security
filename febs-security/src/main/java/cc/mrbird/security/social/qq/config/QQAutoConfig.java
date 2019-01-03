@@ -9,20 +9,32 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
-import org.springframework.social.autoconfigure.SocialAutoConfigurerAdapter;
+import org.springframework.core.env.Environment;
+import org.springframework.social.config.annotation.ConnectionFactoryConfigurer;
+import org.springframework.social.config.annotation.SocialConfigurerAdapter;
 import org.springframework.social.connect.ConnectionFactory;
+import org.springframework.social.connect.ConnectionFactoryLocator;
+import org.springframework.social.connect.UsersConnectionRepository;
 import org.springframework.web.servlet.View;
 
+/**
+ * @author yiheni
+ */
 @Configuration
 @ConditionalOnProperty(prefix = "febs.security.social.qq", name = "app-id")
 @Order(2)
-public class QQAutoConfig extends SocialAutoConfigurerAdapter {
+public class QQAutoConfig extends SocialConfigurerAdapter {
 
     @Autowired
     private FebsSecurityProperties securityProperties;
 
     @Override
-    protected ConnectionFactory<?> createConnectionFactory() {
+    public void addConnectionFactories(ConnectionFactoryConfigurer configurer, Environment environment) {
+        configurer.addConnectionFactory(createConnectionFactory());
+    }
+
+
+    public ConnectionFactory<?> createConnectionFactory() {
         QQProperties properties = securityProperties.getSocial().getQQ();
         return new QQConnectionFactory(properties.getProviderId(), properties.getAppId(), properties.getAppSecret());
     }
@@ -30,5 +42,10 @@ public class QQAutoConfig extends SocialAutoConfigurerAdapter {
     @Bean({"connect/qqConnect", "connect/qqConnected"})
     public View qqConnectedView() {
         return new SocialConnectedView();
+    }
+
+    @Override
+    public UsersConnectionRepository getUsersConnectionRepository(ConnectionFactoryLocator connectionFactoryLocator) {
+        return null;
     }
 }

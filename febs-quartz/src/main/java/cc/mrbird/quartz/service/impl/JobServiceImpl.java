@@ -25,6 +25,9 @@ import java.lang.reflect.Parameter;
 import java.util.*;
 import java.util.stream.Collectors;
 
+/**
+ * @author yiheni
+ */
 @Service("JobService")
 @Transactional(propagation = Propagation.SUPPORTS, readOnly = true, rollbackFor = Exception.class)
 public class JobServiceImpl extends BaseService<Job> implements JobService {
@@ -87,7 +90,7 @@ public class JobServiceImpl extends BaseService<Job> implements JobService {
     }
 
     @Override
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public void addJob(Job job) {
         job.setCreateTime(new Date());
         job.setStatus(Job.ScheduleStatus.PAUSE.getValue());
@@ -96,14 +99,14 @@ public class JobServiceImpl extends BaseService<Job> implements JobService {
     }
 
     @Override
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public void updateJob(Job job) {
         ScheduleUtils.updateScheduleJob(scheduler, job);
         this.updateNotNull(job);
     }
 
     @Override
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public void deleteBatch(String jobIds) {
         List<String> list = Arrays.asList(jobIds.split(","));
         list.forEach(jobId -> ScheduleUtils.deleteScheduleJob(scheduler, Long.valueOf(jobId)));
@@ -111,7 +114,7 @@ public class JobServiceImpl extends BaseService<Job> implements JobService {
     }
 
     @Override
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public int updateBatch(String jobIds, String status) {
         List<String> list = Arrays.asList(jobIds.split(","));
         Example example = new Example(Job.class);
@@ -122,14 +125,14 @@ public class JobServiceImpl extends BaseService<Job> implements JobService {
     }
 
     @Override
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public void run(String jobIds) {
         String[] list = jobIds.split(",");
         Arrays.stream(list).forEach(jobId -> ScheduleUtils.run(scheduler, this.findJob(Long.valueOf(jobId))));
     }
 
     @Override
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public void pause(String jobIds) {
         String[] list = jobIds.split(",");
         Arrays.stream(list).forEach(jobId -> ScheduleUtils.pauseJob(scheduler, Long.valueOf(jobId)));
@@ -137,7 +140,7 @@ public class JobServiceImpl extends BaseService<Job> implements JobService {
     }
 
     @Override
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public void resume(String jobIds) {
         String[] list = jobIds.split(",");
         Arrays.stream(list).forEach(jobId -> ScheduleUtils.resumeJob(scheduler, Long.valueOf(jobId)));

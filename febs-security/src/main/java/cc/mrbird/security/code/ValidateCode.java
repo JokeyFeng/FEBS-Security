@@ -3,6 +3,9 @@ package cc.mrbird.security.code;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
+/**
+ * @author yiheni
+ */
 public class ValidateCode implements Serializable {
 
     private static final long serialVersionUID = -8020446016590813217L;

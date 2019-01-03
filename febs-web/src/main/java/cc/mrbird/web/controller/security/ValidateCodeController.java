@@ -22,6 +22,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
+/**
+ * @author yiheni
+ */
 @RestController
 public class ValidateCodeController {
 

@@ -2,18 +2,31 @@ package cc.mrbird.security.properties;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
+/**
+ * @author yiheni
+ */
 @ConfigurationProperties(prefix = "febs.security")
 public class FebsSecurityProperties {
 
-    // 登录 URL
+    /**
+     * 登录 URL
+     */
     private String loginUrl;
-    // 免认证静态资源路径
+    /**
+     * 免认证静态资源路径
+     */
     private String anonResourcesUrl;
-    // 记住我超时时间
+    /**
+     * 记住我超时时间
+     */
     private int rememberMeTimeout;
-    // 登出 URL
+    /**
+     * 登出 URL
+     */
     private String logoutUrl;
-    // 主页 URL
+    /**
+     * 主页 URL
+     */
     private String indexUrl;
 
     private ValidateCodeProperties code = new ValidateCodeProperties();

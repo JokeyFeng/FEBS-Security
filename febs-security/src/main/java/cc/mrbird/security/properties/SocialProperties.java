@@ -1,6 +1,9 @@
 package cc.mrbird.security.properties;
 
 
+/**
+ * @author yiheni
+ */
 public class SocialProperties {
 
     private String filterProcessesUrl = "/auth";

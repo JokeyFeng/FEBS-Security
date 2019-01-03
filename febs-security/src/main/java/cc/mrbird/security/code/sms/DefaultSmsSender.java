@@ -2,6 +2,9 @@ package cc.mrbird.security.code.sms;
 
 import org.springframework.beans.factory.annotation.Value;
 
+/**
+ * @author yiheni
+ */
 public class DefaultSmsSender implements SmsCodeSender {
 
     @Value("${febs.security.code.sms.expire-in}")

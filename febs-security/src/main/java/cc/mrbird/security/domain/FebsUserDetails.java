@@ -4,6 +4,9 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 
 import java.util.Collection;
+/**
+ * @author yiheni
+ */
 public class FebsUserDetails extends User {
 
     private static final long serialVersionUID = 2017845963758421135L;

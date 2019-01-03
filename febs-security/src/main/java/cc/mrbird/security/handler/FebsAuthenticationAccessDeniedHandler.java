@@ -13,6 +13,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * @author yiheni
+ */
 public class FebsAuthenticationAccessDeniedHandler implements AccessDeniedHandler {
 
     private ObjectMapper mapper = new ObjectMapper();

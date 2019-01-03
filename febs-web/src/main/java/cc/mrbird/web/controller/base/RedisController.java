@@ -15,6 +15,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * @author yiheni
+ */
 @Controller
 @RequestMapping("redis")
 public class RedisController {
@@ -114,8 +117,9 @@ public class RedisController {
             int count = 0;
             String[] arr = arg.split(",");
             for (String key : arr) {
-                if (this.redisService.exists(key))
+                if (this.redisService.exists(key)) {
                     count++;
+                }
             }
             return ResponseBo.ok(INTEGER_PREFIX + count);
         } catch (Exception e) {

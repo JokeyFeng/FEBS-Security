@@ -65,10 +65,15 @@
                 </exclusion>
             </exclusions>
         </dependency>
-        <!-- hikaricp -->
+        <!-- hikaricp
         <dependency>
             <groupId>com.zaxxer</groupId>
             <artifactId>HikariCP</artifactId>
+        </dependency>-->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>druid-spring-boot-starter</artifactId>
+            <version>1.1.9</version>
         </dependency>
         <!-- mysql -->
         <dependency>

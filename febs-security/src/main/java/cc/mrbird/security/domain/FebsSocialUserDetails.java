@@ -5,6 +5,9 @@ import org.springframework.social.security.SocialUser;
 
 import java.util.Collection;
 
+/**
+ * @author yiheni
+ */
 public class FebsSocialUserDetails extends SocialUser {
 
     private static final long serialVersionUID = 7009972239683348098L;

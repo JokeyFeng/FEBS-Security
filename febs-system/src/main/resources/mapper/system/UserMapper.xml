@@ -21,7 +21,7 @@
     <result column="DESCRIPTION" jdbcType="VARCHAR" property="description"/>
   </resultMap>
   
-  <select id="findUserWithDept" resultType="myUser" parameterType="myUser">
+  <select id="findUserWithDept" resultType="cc.mrbird.system.domain.MyUser" parameterType="myUser">
   		select u.user_id userId,u.username,u.email,u.mobile,u.status,u.crate_time crateTime,
   		u.ssex,u.theme,u.avatar,d.dept_name deptName from t_user u
   		left join t_dept d on(u.dept_id = d.dept_id)
@@ -42,14 +42,14 @@
   </select>
   
     
-  <select id="findUserWithRole" resultType="userWithRole">
+  <select id="findUserWithRole" resultType="cc.mrbird.system.domain.UserWithRole">
 		select u.user_id userId,u.username,u.dept_id deptId,u.email,u.mobile,
 		u.status,u.ssex,ur.role_id roleId from t_user u
 		left join t_user_role ur on (u.user_id = ur.user_id)
 		where u.user_id = #{userId}
   </select>
   
-  <select id="findUserProfile" resultType="myUser" parameterType="myUser">
+  <select id="findUserProfile" resultType="cc.mrbird.system.domain.MyUser">
 	SELECT
 		U .USERNAME,
 		U .USER_ID userId,

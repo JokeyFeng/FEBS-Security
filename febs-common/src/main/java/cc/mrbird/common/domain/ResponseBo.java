@@ -2,19 +2,22 @@ package cc.mrbird.common.domain;
 
 import java.util.HashMap;
 
+/**
+ * @author yiheni
+ */
 public class ResponseBo extends HashMap<String, Object> {
 
     private static final long serialVersionUID = -8713837118340960775L;
 
-    // 成功
+    /**成功*/
     private static final Integer SUCCESS = 0;
-    // 警告
+    /**警告*/
     private static final Integer WARN = 1;
-    // 异常 失败
+    /**异常 失败*/
     private static final Integer FAIL = 500;
-    // 未认证
+    /**未认证*/
     private static final Integer UNAUTHORIZED = 401;
-    // 超频
+    /**超频*/
     private static final Integer OVERCLOCKING = 666;
 
     public ResponseBo() {

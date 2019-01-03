@@ -114,7 +114,6 @@ public class FebsSocialWebAutoConfiguration {
     @ConditionalOnClass(SecurityContextHolder.class)
     protected static class AuthenticationUserIdSourceConfig
             extends SocialConfigurerAdapter {
-
         @Override
         public UserIdSource getUserIdSource() {
             return new SecurityContextUserIdSource();

@@ -17,7 +17,7 @@ import java.time.LocalTime;
 /**
  * @author yiheni
  */
-@SpringBootApplication(exclude = {SocialWebAutoConfiguration.class})
+@SpringBootApplication
 @MapperScan("cc.mrbird.*.dao")
 @EnableConfigurationProperties({FebsSecurityProperties.class, FebsProperies.class})
 @EnableCaching

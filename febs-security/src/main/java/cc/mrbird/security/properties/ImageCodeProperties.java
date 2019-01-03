@@ -1,5 +1,8 @@
 package cc.mrbird.security.properties;
 
+/**
+ * @author yiheni
+ */
 public class ImageCodeProperties extends SmsCodeProperties {
 
     private int width = 67;
@@ -7,7 +10,9 @@ public class ImageCodeProperties extends SmsCodeProperties {
 
     private String createUrl = "";
 
-    // 处理使用图形验证码认证 URL
+    /**
+     * 处理使用图形验证码认证 URL
+     */
     private String loginProcessingUrl = "";
 
     public ImageCodeProperties() {

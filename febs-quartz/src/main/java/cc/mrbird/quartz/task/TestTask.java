@@ -4,6 +4,9 @@ import cc.mrbird.common.annotation.CronTag;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * @author yiheni
+ */
 @CronTag("testTask")
 public class TestTask {
 

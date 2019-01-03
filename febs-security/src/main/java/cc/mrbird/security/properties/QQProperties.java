@@ -1,11 +1,31 @@
 package cc.mrbird.security.properties;
 
-
-import org.springframework.social.autoconfigure.SocialProperties;
-
-public class QQProperties extends SocialProperties {
+/**
+ * @author yiheni
+ */
+public class QQProperties {
 
     private String providerId = "qq";
+
+    private String appId;
+
+    private String appSecret;
+
+    public String getAppId() {
+        return appId;
+    }
+
+    public void setAppId(String appId) {
+        this.appId = appId;
+    }
+
+    public String getAppSecret() {
+        return appSecret;
+    }
+
+    public void setAppSecret(String appSecret) {
+        this.appSecret = appSecret;
+    }
 
     public String getProviderId() {
         return providerId;
