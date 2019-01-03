@@ -1,6 +1,14 @@
 package cc.mrbird.common.utils.poi.convert;
 
+/**
+ * @author yiheni
+ */
 public interface ExportConvert {
-	
-	String handler(Object val);
+    /**
+     * 转换
+     *
+     * @param val
+     * @return
+     */
+    String handler(Object val);
 }

@@ -5,6 +5,9 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
+/**
+ * @author yiheni
+ */
 public class DateUtil {
 
     private DateUtil(){

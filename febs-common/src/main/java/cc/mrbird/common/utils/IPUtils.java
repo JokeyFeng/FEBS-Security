@@ -2,6 +2,9 @@ package cc.mrbird.common.utils;
 
 import javax.servlet.http.HttpServletRequest;
 
+/**
+ * @author yiheni
+ */
 public class IPUtils {
 
 	private static final String UNKNOWN = "unknown";

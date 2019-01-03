@@ -21,10 +21,11 @@ public class FebsUtil {
      */
     public static boolean isPhoneNo(String phoneNo) {
         String regex = "[1]\\d{10}";
-        if (StringUtils.isBlank(phoneNo))
+        if (StringUtils.isBlank(phoneNo)) {
             return false;
-        else
+        } else {
             return phoneNo.matches(regex);
+        }
     }
 
     /**

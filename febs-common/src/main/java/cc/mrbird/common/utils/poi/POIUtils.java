@@ -16,6 +16,7 @@ import java.net.URLEncoder;
 
 /**
  * Apache POI SXSS相关API的简易封装
+ * @author yiheni
  */
 public class POIUtils {
 
@@ -25,14 +26,14 @@ public class POIUtils {
 
     }
 
-    private static final int MDEFAULTROWACCESSWINDOWSIZE = 100;
+    private static final int M_DEFAULT_ROW_ACCESS_WINDOW_SIZE = 100;
 
     private static SXSSFWorkbook newSXSSFWorkbook(int rowAccessWindowSize) {
         return new SXSSFWorkbook(rowAccessWindowSize);
     }
 
     static SXSSFWorkbook newSXSSFWorkbook() {
-        return newSXSSFWorkbook(MDEFAULTROWACCESSWINDOWSIZE);
+        return newSXSSFWorkbook(M_DEFAULT_ROW_ACCESS_WINDOW_SIZE);
     }
 
     static SXSSFSheet newSXSSFSheet(SXSSFWorkbook wb, String sheetName) {

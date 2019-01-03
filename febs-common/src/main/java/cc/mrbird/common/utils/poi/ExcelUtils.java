@@ -5,6 +5,7 @@ import cc.mrbird.common.utils.poi.convert.ExportConvert;
 import cc.mrbird.common.utils.poi.pojo.ExportItem;
 import com.csvreader.CsvWriter;
 import org.apache.commons.beanutils.BeanUtils;
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.hssf.util.HSSFColor;
 import org.apache.poi.ss.usermodel.CellStyle;
@@ -33,9 +34,9 @@ public class ExcelUtils {
 
     private Class<?> mClass = null;
     private HttpServletResponse mResponse = null;
-    // 分Sheet机制：每个Sheet最多多少条数据
+    /**分Sheet机制：每个Sheet最多多少条数据*/
     private Integer mMaxSheetRecords = 10000;
-    // 缓存数据格式器实例,避免多次使用反射进行实例化
+    /**缓存数据格式器实例,避免多次使用反射进行实例化*/
     private Map<String, ExportConvert> mConvertInstanceCache = new HashMap<>();
 
     protected ExcelUtils() {
@@ -90,7 +91,7 @@ public class ExcelUtils {
      * @return true-操作成功,false-操作失败
      */
     public boolean toExcel(List<?> data, String sheetName) {
-        requiredexportParams();
+        requiredExportParams();
 
         try {
             return toExcel(data, sheetName, mResponse.getOutputStream());
@@ -117,12 +118,18 @@ public class ExcelUtils {
                 CellStyle cellStyle = wb.createCellStyle();
                 Font font = wb.createFont();
                 cellStyle.setFillForegroundColor((short) 12);
-                cellStyle.setFillPattern(CellStyle.SOLID_FOREGROUND);// 填充模式
-                cellStyle.setBorderTop(CellStyle.BORDER_THIN);// 上边框为细边框
-                cellStyle.setBorderRight(CellStyle.BORDER_THIN);// 右边框为细边框
-                cellStyle.setBorderBottom(CellStyle.BORDER_THIN);// 下边框为细边框
-                cellStyle.setBorderLeft(CellStyle.BORDER_THIN);// 左边框为细边框
-                cellStyle.setAlignment(CellStyle.ALIGN_LEFT);// 对齐
+                // 填充模式
+                cellStyle.setFillPattern(CellStyle.SOLID_FOREGROUND);
+                //上边框为细边框
+                cellStyle.setBorderTop(CellStyle.BORDER_THIN);
+                //右边框为细边框
+                cellStyle.setBorderRight(CellStyle.BORDER_THIN);
+                //下边框为细边框
+                cellStyle.setBorderBottom(CellStyle.BORDER_THIN);
+                //左边框为细边框
+                cellStyle.setBorderLeft(CellStyle.BORDER_THIN);
+                //对齐
+                cellStyle.setAlignment(CellStyle.ALIGN_LEFT);
                 cellStyle.setFillForegroundColor(HSSFColor.GREEN.index);
                 cellStyle.setFillBackgroundColor(HSSFColor.GREEN.index);
                 font.setBoldweight(Font.BOLDWEIGHT_NORMAL);
@@ -141,11 +148,11 @@ public class ExcelUtils {
     }
 
     public boolean toExcel(List<?> data, String sheetName, ExportHandler handler, OutputStream out) {
-        requiredbuilderParams();
-        if (data == null || data.isEmpty()) {
+        requiredBuilderParams();
+        if (CollectionUtils.isEmpty(data)) {
             return false;
         }
-        // 导出列查询。
+        //导出列查询。
         ExportConfig currentExportConfig;
         ExportItem currentExportItem;
         List<ExportItem> exportItems = new ArrayList<>();
@@ -163,17 +170,17 @@ public class ExcelUtils {
 
         }
 
-        // 创建新的工作薄。
+        //创建新的工作薄。
         SXSSFWorkbook wb = POIUtils.newSXSSFWorkbook();
+        // 取出一共有多少个sheet
+        double sheetNo = Math.ceil((double) data.size() / mMaxSheetRecords);
 
-        double sheetNo = Math.ceil((double) data.size() / mMaxSheetRecords);// 取出一共有多少个sheet.
-
-        // =====多sheet生成填充数据=====
+        //=====多sheet生成填充数据=====
         int index = 0;
         while (index <= (sheetNo == 0.0 ? sheetNo : sheetNo - 1)) {
             SXSSFSheet sheet = POIUtils.newSXSSFSheet(wb, sheetName + (index == 0 ? "" : "_" + index));
 
-            // 创建表头
+            //创建表头
             SXSSFRow headerRow = POIUtils.newSXSSFRow(sheet, 0);
             for (int i = 0; i < exportItems.size(); i++) {
                 SXSSFCell cell = POIUtils.newSXSSFCell(headerRow, i);
@@ -193,7 +200,7 @@ public class ExcelUtils {
             Font font = wb.createFont();
             style.setFont(font);
 
-            // 产生数据行
+            //产生数据行
             if (!data.isEmpty()) {
                 int startNo = index * mMaxSheetRecords;
                 int endNo = Math.min(startNo + mMaxSheetRecords, data.size());
@@ -202,7 +209,7 @@ public class ExcelUtils {
                 while (i < endNo) {
                     bodyRow = POIUtils.newSXSSFRow(sheet, i + 1 - startNo);
                     for (int j = 0; j < exportItems.size(); j++) {
-                        // 处理单元格值
+                        //处理单元格值
                         cellValue = exportItems.get(j).getReplace();
                         if ("".equals(cellValue)) {
                             try {
@@ -212,16 +219,16 @@ public class ExcelUtils {
                             }
                         }
 
-                        // 格式化单元格值
+                        //格式化单元格值
                         if (!"".equals(exportItems.get(j).getConvert())) {
                             cellValue = convertCellValue(cellValue, exportItems.get(j).getConvert());
                         }
 
-                        // 单元格宽度
+                        //单元格宽度
                         POIUtils.setColumnWidth(sheet, j, exportItems.get(j).getWidth(), cellValue);
 
                         cell = POIUtils.newSXSSFCell(bodyRow, j);
-                        // fix: 当值为“”时,当前index的cell会失效
+                        //fix: 当值为“”时,当前index的cell会失效
                         cell.setCellValue("".equals(cellValue) ? null : cellValue);
                         cell.setCellStyle(style);
                     }
@@ -232,7 +239,7 @@ public class ExcelUtils {
         }
 
         try {
-            // 生成Excel文件并下载.(通过response对象是否为空来判定是使用浏览器下载还是直接写入到output中)
+            //生成Excel文件并下载.(通过response对象是否为空来判定是使用浏览器下载还是直接写入到output中)
             POIUtils.writeByLocalOrBrowser(mResponse, handler.exportFileName(sheetName), wb, out);
         } catch (Exception e) {
             log.error(e.getMessage());
@@ -244,7 +251,7 @@ public class ExcelUtils {
 
     public boolean toCsv(List<?> data, String path) {
         try {
-            requiredbuilderParams();
+            requiredBuilderParams();
             if (data == null || data.isEmpty()) {
                 return false;
             }
@@ -325,9 +332,9 @@ public class ExcelUtils {
                     mConvertInstanceCache.put(clazz, export);
                 }
 
-                if (mConvertInstanceCache.size() > 10)
+                if (mConvertInstanceCache.size() > 10) {
                     mConvertInstanceCache.clear();
-
+                }
                 return export.handler(oldValue);
             }
         } catch (Exception e) {
@@ -336,13 +343,13 @@ public class ExcelUtils {
         return String.valueOf(oldValue);
     }
 
-    private void requiredbuilderParams() {
+    private void requiredBuilderParams() {
         if (mClass == null) {
             throw new IllegalArgumentException("请先使用cc.mrbird.util.poi.ExcelUtils.builder(Class<?>)构造器初始化参数。");
         }
     }
 
-    private void requiredexportParams() {
+    private void requiredExportParams() {
         if (mClass == null || mResponse == null) {
             throw new IllegalArgumentException(
                     "请先使用cc.mrbird.util.poi.ExcelUtils.export(Class<?>, HttpServletResponse)构造器初始化参数。");

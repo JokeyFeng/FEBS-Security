@@ -1,12 +1,21 @@
 package cc.mrbird.common.utils.poi.pojo;
 
+/**
+ * @author yiheni
+ */
 public class ExportItem {
 
-	private String field; // 属性名
-	private String display; // 显示名
-	private short width; // 宽度
+    /**属性名*/
+	private String field;
+    /**显示名*/
+	private String display;
+    /**宽度*/
+	private short width;
+
 	private String convert;
+
 	private short color;
+
 	private String replace;
 
 	public String getField() {

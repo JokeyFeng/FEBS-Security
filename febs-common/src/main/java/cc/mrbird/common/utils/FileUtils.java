@@ -14,6 +14,9 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
 
+/**
+ * @author yiheni
+ */
 public class FileUtils {
 
     private static Logger log = LoggerFactory.getLogger(FileUtils.class);
@@ -64,8 +67,9 @@ public class FileUtils {
             fileName = makeFileName(fileName);
             try {
                 File fileDir = new File("file");
-                if (!fileDir.exists())
+                if (!fileDir.exists()) {
                     fileDir.mkdir();
+                }
                 String path = "file/" + fileName;
                 FileOutputStream fos;
                 fos = new FileOutputStream(path);
@@ -76,11 +80,7 @@ public class FileUtils {
             } catch (FileNotFoundException e) {
                 log.error("文件未找到", e);
             }
-            if (operateSign) {
-                return ResponseBo.ok(fileName);
-            } else {
-                return ResponseBo.error("导出Excel失败，请联系网站管理员！");
-            }
+            return operateSign ? ResponseBo.ok(fileName) : ResponseBo.error("导出Excel失败，请联系网站管理员！");
         }
     }
 
@@ -102,16 +102,13 @@ public class FileUtils {
             fileName = makeFileName(fileName);
 
             File fileDir = new File("file");
-            if (!fileDir.exists())
+            if (!fileDir.exists()) {
                 fileDir.mkdir();
+            }
             String path = "file/" + fileName;
             operateSign = ExcelUtils.builder(clazz)
                     .toCsv(list, path);
-            if (operateSign) {
-                return ResponseBo.ok(fileName);
-            } else {
-                return ResponseBo.error("导出Csv失败，请联系网站管理员！");
-            }
+            return operateSign ? ResponseBo.ok(fileName) : ResponseBo.error("导出Csv失败，请联系网站管理员！");
         }
     }
 }

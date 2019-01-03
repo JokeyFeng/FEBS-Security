@@ -28,6 +28,9 @@ import java.io.Serializable;
 import java.nio.charset.Charset;
 import java.time.Duration;
 
+/**
+ * @author yiheni
+ */
 @Configuration
 
 public class RedisConfig extends CachingConfigurerSupport {
@@ -55,11 +58,9 @@ public class RedisConfig extends CachingConfigurerSupport {
         JedisPoolConfig jedisPoolConfig = new JedisPoolConfig();
         jedisPoolConfig.setMaxIdle(maxIdle);
         jedisPoolConfig.setMaxWaitMillis(maxWaitMillis);
-        if (StringUtils.isNotBlank(password)) {
-            return new JedisPool(jedisPoolConfig, host, port, timeout, password);
-        } else {
-            return new JedisPool(jedisPoolConfig, host, port, timeout);
-        }
+
+        return StringUtils.isNotBlank(password) ?
+                new JedisPool(jedisPoolConfig, host, port, timeout, password) : new JedisPool(jedisPoolConfig, host, port, timeout);
     }
 
     @Bean
@@ -93,7 +94,12 @@ public class RedisConfig extends CachingConfigurerSupport {
         return template;
     }
 
-    //缓存管理器
+    /**
+     * 缓存管理器
+     *
+     * @param redisConnectionFactory
+     * @return
+     */
     @Bean
     public CacheManager cacheManager(RedisConnectionFactory redisConnectionFactory) {
         RedisCacheManager.RedisCacheManagerBuilder builder = RedisCacheManager

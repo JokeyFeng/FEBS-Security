@@ -9,8 +9,12 @@ import javax.net.ssl.*;
 import java.io.*;
 import java.net.URL;
 import java.net.URLConnection;
+import java.nio.charset.StandardCharsets;
 import java.security.cert.X509Certificate;
 
+/**
+ * @author yiheni
+ */
 public class HttpUtils {
 
     private static Logger log = LoggerFactory.getLogger(HttpUtils.class);
@@ -22,7 +26,7 @@ public class HttpUtils {
     private static final String ACCEPT = "accept";
     private static final String UTF8 = "utf-8";
     private static final String ACCEPT_CHARSET = "Accept-Charset";
-    private static final String CONTENTTYPE = "contentType";
+    private static final String CONTENT_TYPE = "contentType";
     private static final String SSL = "ssl";
 
     protected HttpUtils() {
@@ -71,12 +75,15 @@ public class HttpUtils {
         URLConnection conn = realUrl.openConnection();
         conn.setDoInput(true);
         conn.setDoOutput(true);
-        conn.setRequestProperty(CONTENTTYPE, UTF8);
+        conn.setRequestProperty(CONTENT_TYPE, UTF8);
         conn.setRequestProperty(ACCEPT_CHARSET, UTF8);
         conn.setRequestProperty(USER_AGENT, USER_AGENT_VALUE);
         conn.setRequestProperty(CONNECTION, CONNECTION_VALUE);
         conn.setRequestProperty(ACCEPT, "*/*");
-        try (PrintWriter out = new PrintWriter(conn.getOutputStream()); BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream(), UTF8))) {
+        try (
+                PrintWriter out = new PrintWriter(conn.getOutputStream());
+                BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream(), StandardCharsets.UTF_8))
+        ) {
             String line;
             while ((line = in.readLine()) != null) {
                 result.append(line);
@@ -101,7 +108,7 @@ public class HttpUtils {
             conn.setRequestProperty(CONNECTION, CONNECTION_VALUE);
             conn.setRequestProperty(USER_AGENT, USER_AGENT_VALUE);
             conn.setRequestProperty(ACCEPT_CHARSET, UTF8);
-            conn.setRequestProperty(CONTENTTYPE, UTF8);
+            conn.setRequestProperty(CONTENT_TYPE, UTF8);
             conn.setDoOutput(true);
             conn.setDoInput(true);
 
@@ -109,16 +116,16 @@ public class HttpUtils {
             conn.setHostnameVerifier(new TrustAnyHostnameVerifier());
             conn.connect();
             InputStream is = conn.getInputStream();
-            BufferedReader indata = new BufferedReader(new InputStreamReader(is));
+            BufferedReader data = new BufferedReader(new InputStreamReader(is));
             String ret = "";
             while (ret != null) {
-                ret = indata.readLine();
+                ret = data.readLine();
                 if (StringUtils.isNotBlank(ret)) {
                     result.append(ret);
                 }
             }
             conn.disconnect();
-            indata.close();
+            data.close();
         } catch (Exception e) {
             log.error("发送SSL POST 请求出现异常！", e);
         }
@@ -126,20 +133,24 @@ public class HttpUtils {
     }
 
     private static class TrustAnyTrustManager implements X509TrustManager {
+        @Override
         public void checkClientTrusted(X509Certificate[] chain, String authType) {
             //trust anything
         }
 
+        @Override
         public void checkServerTrusted(X509Certificate[] chain, String authType) {
             //trust anything
         }
 
+        @Override
         public X509Certificate[] getAcceptedIssuers() {
             return new X509Certificate[]{};
         }
     }
 
     private static class TrustAnyHostnameVerifier implements HostnameVerifier {
+        @Override
         public boolean verify(String hostname, SSLSession session) {
             return true;
         }

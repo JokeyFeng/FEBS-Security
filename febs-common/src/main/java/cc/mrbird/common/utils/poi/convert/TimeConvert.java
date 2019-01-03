@@ -4,6 +4,9 @@ import cc.mrbird.common.utils.DateUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * @author yiheni
+ */
 public class TimeConvert implements ExportConvert {
 
     private Logger log = LoggerFactory.getLogger(this.getClass());
@@ -11,9 +14,9 @@ public class TimeConvert implements ExportConvert {
     @Override
     public String handler(Object val) {
         try {
-            if (val == null)
+            if (val == null) {
                 return "";
-            else {
+            } else {
                 return DateUtil.formatCSTTime(val.toString(), "yyyy-MM-dd HH:mm:ss");
             }
         } catch (Exception e) {

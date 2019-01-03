@@ -6,6 +6,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+/**
+ * @author yiheni
+ */
 public interface RedisService {
 
     /**
@@ -81,8 +84,8 @@ public interface RedisService {
      * pexpire命令
      *
      * @param key         key
-     * @param milliscends 毫秒
+     * @param milliSeconds 毫秒
      * @return Long
      */
-    Long pexpire(String key, Long milliscends);
+    Long pexpire(String key, Long milliSeconds);
 }

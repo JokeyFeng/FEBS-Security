@@ -5,6 +5,7 @@ import org.apache.poi.xssf.streaming.SXSSFWorkbook;
 
 /**
  * 导出Excel设置接口。
+ * @author yiheni
  */
 public interface ExportHandler {
 	/**

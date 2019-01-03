@@ -1,5 +1,8 @@
 package cc.mrbird.common.exception;
 
+/**
+ * @author yiheni
+ */
 public class LimitAccessException extends Exception {
 
     private static final long serialVersionUID = -3608667856397125671L;

@@ -12,6 +12,9 @@ import org.springframework.core.io.Resource;
 import java.io.File;
 import java.lang.reflect.Method;
 
+/**
+ * @author yiheni
+ */
 public class AddressUtils {
 
     private AddressUtils() {
@@ -44,7 +47,7 @@ public class AddressUtils {
                     method = searcher.getClass().getMethod("memorySearch", String.class);
                     break;
             }
-            DataBlock dataBlock = null;
+            DataBlock dataBlock;
             if (!Util.isIpAddress(ip)) {
                 log.error("Error: Invalid ip address");
             }

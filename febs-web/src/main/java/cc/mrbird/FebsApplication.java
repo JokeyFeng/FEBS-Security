@@ -9,12 +9,14 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.scheduling.annotation.EnableAsync;
-import org.springframework.social.autoconfigure.SocialWebAutoConfiguration;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
 
+/**
+ * @author yiheni
+ */
 @SpringBootApplication(exclude = {SocialWebAutoConfiguration.class})
 @MapperScan("cc.mrbird.*.dao")
 @EnableConfigurationProperties({FebsSecurityProperties.class, FebsProperies.class})
