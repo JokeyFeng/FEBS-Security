@@ -71,7 +71,7 @@ public class LimitAspect {
                 key = StringUtils.upperCase(method.getName());
         }
         ImmutableList<String> keys = ImmutableList.of(StringUtils.join(limitAnnotation.prefix() + "_", key + "_" + request.getRequestedSessionId()));
-        String luaScript = buildLuaScript();
+        String luaScript = this.buildLuaScript();
         RedisScript<Number> redisScript = new DefaultRedisScript<>(luaScript, Number.class);
         Number count = limitRedisTemplate.execute(redisScript, keys, limitCount, limitPeriod);
         logger.info("第{}次访问key为 {}，描述为 [{}] 的接口", count, keys, name);
