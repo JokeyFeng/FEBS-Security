@@ -47,5 +47,4 @@ public class ScheduleRunnable implements Runnable {
 			log.error("执行定时任务失败",e);
 		}
 	}
-
 }

@@ -23,27 +23,6 @@ public class Job implements Serializable {
      */
     public static final String JOB_PARAM_KEY = "JOB_PARAM_KEY";
 
-    public enum ScheduleStatus {
-        /**
-         * 正常
-         */
-        NORMAL("0"),
-        /**
-         * 暂停
-         */
-        PAUSE("1");
-
-        private String value;
-
-        private ScheduleStatus(String value) {
-            this.value = value;
-        }
-
-        public String getValue() {
-            return value;
-        }
-    }
-
     @Id
     @GeneratedValue(generator = "JDBC")
     @Column(name = "JOB_ID")
@@ -203,4 +182,26 @@ public class Job implements Serializable {
                 .add("createTime", createTime)
                 .toString();
     }
+
+    public enum ScheduleStatus {
+        /**
+         * 正常
+         */
+        NORMAL("0"),
+        /**
+         * 暂停
+         */
+        PAUSE("1");
+
+        private String value;
+
+        private ScheduleStatus(String value) {
+            this.value = value;
+        }
+
+        public String getValue() {
+            return value;
+        }
+    }
+
 }
