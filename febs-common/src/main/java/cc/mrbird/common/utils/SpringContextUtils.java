@@ -18,6 +18,7 @@ public class SpringContextUtils implements ApplicationContextAware {
 
 	@Override
 	public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+        System.out.println("应用上下文对象初始化了....");
 		SpringContextUtils.applicationContext = applicationContext;
 	}
 

@@ -32,7 +32,7 @@ public class AddressUtils {
             int algorithm = DbSearcher.BTREE_ALGORITHM;
             DbConfig config = new DbConfig();
             DbSearcher searcher = new DbSearcher(config, file.getPath());
-            Method method = null;
+            Method method;
             switch (algorithm) {
                 case DbSearcher.BTREE_ALGORITHM:
                     method = searcher.getClass().getMethod("btreeSearch", String.class);

@@ -161,7 +161,9 @@ public class JobServiceImpl extends BaseService<Job> implements JobService {
                 Job job1 = new Job();
                 String methodName = method.getName();
                 Parameter[] methodParameters = method.getParameters();
-                String params = String.format("%s(%s)", methodName, Arrays.stream(methodParameters).map(item -> item.getType().getSimpleName() + " " + item.getName()).collect(Collectors.joining(", ")));
+                String params =
+                        String.format("%s(%s)", methodName, Arrays.stream(methodParameters)
+                                .map(item -> item.getType().getSimpleName() + " " + item.getName()).collect(Collectors.joining(", ")));
 
                 job1.setBeanName(StringUtils.uncapitalize(clsSimpleName));
                 job1.setMethodName(methodName);
@@ -171,5 +173,4 @@ public class JobServiceImpl extends BaseService<Job> implements JobService {
         }
         return jobList;
     }
-
 }

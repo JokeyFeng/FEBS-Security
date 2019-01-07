@@ -4,6 +4,9 @@ import cc.mrbird.security.domain.LoginType;
 
 import java.io.Serializable;
 
+/**
+ * @author yiheni
+ */
 public class UserOnLine implements Serializable {
 
     private static final long serialVersionUID = 3819885072658204812L;
